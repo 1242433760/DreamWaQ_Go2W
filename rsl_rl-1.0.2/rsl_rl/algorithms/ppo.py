@@ -212,6 +212,7 @@ class PPO:
                 # Traing VAE
                 # 可以训练多次 csq 25/9/4
                 self.vae_optimizer.zero_grad()
+                #老哥请教一下，为什么这里vel_target用的critic_obs_batch,我看封装前的vae好像用的prev_critic_obs_batch
                 vae_loss_dict = self.actor_critic.vae.loss_fn(obs_hist_batch, obs_batch, critic_obs_batch[:,73:76], self.kl_weight)
                 valid = (dones_batch == 0).squeeze()
                 vae_loss = torch.mean(vae_loss_dict['loss'][valid])
